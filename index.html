@@ -162,8 +162,8 @@
   .prin p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
 
   /* maintainers */
-  .maint { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
-  @media (max-width: 720px) { .maint { grid-template-columns: 1fr; gap: 22px; } }
+  .maint { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 860px) { .maint { grid-template-columns: 1fr; gap: 22px; } }
   .step { display: flex; gap: 14px; }
   .step .cmd { font-family: var(--mono); font-size: 13.5px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; color: var(--ink); margin-bottom: 10px; display: inline-block; }
   .step h3 { font-family: var(--sans); font-size: 16px; font-weight: 650; margin: 0 0 4px; letter-spacing: 0; }
@@ -308,10 +308,17 @@
     <section>
       <div class="sec-head">
         <p class="eyebrow">For maintainers</p>
-        <h2>Add it in one command</h2>
-        <p>Invite disclosure in your repo, and gate on it only if you want to.</p>
+        <h2>See your coverage, close the gap</h2>
+        <p>Measure how much of your repo's authorship is on the record — then invite disclosure, and gate on it only if you want to.</p>
       </div>
       <div class="maint">
+        <div class="step">
+          <div>
+            <span class="cmd">$ npx madeby coverage</span>
+            <h3>See where you stand</h3>
+            <p>A scoreboard for your history: how much authorship is disclosed (known) vs <span class="mono">unknown</span>, and the human / with-AI / AI mix of what's known. A labeled estimate — origin unknown is never guessed as human.</p>
+          </div>
+        </div>
         <div class="step">
           <div>
             <span class="cmd">$ npx madeby init</span>
