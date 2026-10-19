@@ -127,19 +127,6 @@
   .sec-head p { color: var(--muted); font-size: 18px; margin: 0; }
   .sec-head p b { color: var(--ink); font-weight: 600; }
 
-  /* taxonomy */
-  .tax { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 720px) { .tax { grid-template-columns: 1fr; } }
-  .cat { border: 1px solid var(--rule); border-radius: 12px; padding: 22px 20px; background: var(--paper-2); }
-  .cat .k { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-weak); padding: 3px 9px; border-radius: 5px; display: inline-block; }
-  .cat h3 { font-size: 18px; margin: 15px 0 6px; font-family: var(--sans); font-weight: 600; letter-spacing: 0; }
-  .cat p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
-  .cat .trailer { font-family: var(--mono); font-size: 12.5px; color: var(--ink); border-top: 1px dashed var(--rule); padding-top: 13px; word-break: break-word; }
-  .cat .trailer span { color: var(--faint); }
-  .oneline { margin-top: 26px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 15px; }
-  .chip { font-family: var(--mono); font-size: 14px; background: var(--term-bg); color: var(--term-fg); padding: 9px 14px; border-radius: 8px; box-shadow: var(--shadow); }
-  .chip b { color: var(--term-accent); font-weight: 600; }
-
   /* evidence */
   .ev { display: grid; grid-template-columns: auto 1fr; gap: 44px; align-items: center; }
   @media (max-width: 720px) { .ev { grid-template-columns: 1fr; gap: 26px; } }
@@ -161,13 +148,25 @@
   .prin h3::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); flex: none; }
   .prin p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
 
-  /* maintainers */
-  .maint { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; align-items: start; }
-  @media (max-width: 860px) { .maint { grid-template-columns: 1fr; gap: 22px; } }
-  .step { display: flex; gap: 14px; }
-  .step .cmd { font-family: var(--mono); font-size: 13.5px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; color: var(--ink); margin-bottom: 10px; display: inline-block; }
-  .step h3 { font-family: var(--sans); font-size: 16px; font-weight: 650; margin: 0 0 4px; letter-spacing: 0; }
-  .step p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+  /* try it — the walkthrough */
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 44px; }
+  .steps > li { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 18px; }
+  .steps > li::before { content: counter(step); width: 34px; height: 34px; border-radius: 50%; background: var(--accent-weak); color: var(--accent); font-family: var(--serif); font-weight: 700; font-size: 17px; display: inline-flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .steps h3 { font-family: var(--sans); font-size: 19px; font-weight: 650; margin: 2px 0 8px; letter-spacing: 0; }
+  .steps p { margin: 0 0 14px; color: var(--muted); font-size: 16px; line-height: 1.55; max-width: 62ch; }
+  .steps p b { color: var(--ink); font-weight: 600; }
+  .steps .term { font-size: 13px; margin: 4px 0 16px; max-width: 640px; }
+  .cmd { font-family: var(--mono); font-size: 14px; background: var(--term-bg); color: var(--term-fg); padding: 9px 14px; border-radius: 8px; box-shadow: var(--shadow); display: inline-block; margin: 2px 0 14px; }
+  .cmd b { color: var(--term-accent); font-weight: 600; }
+  .why { font-size: 14.5px !important; color: var(--faint) !important; }
+  .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 4px 0 16px; max-width: 720px; }
+  @media (max-width: 720px) { .cats { grid-template-columns: 1fr; } }
+  .cats > div { border: 1px solid var(--rule); border-radius: 10px; padding: 14px 14px 12px; background: var(--paper-2); }
+  .cats .k { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-weak); padding: 2px 8px; border-radius: 5px; display: inline-block; }
+  .cats .when { margin: 9px 0 10px; font-size: 14px; color: var(--ink); line-height: 1.4; }
+  .cats code { font-size: 12.5px; color: var(--muted); display: block; word-break: break-word; }
+  .other-hosts { margin-top: 40px; padding-top: 22px; border-top: 1px dashed var(--rule); color: var(--muted); font-size: 15px; max-width: 70ch; }
+  .other-hosts code { font-size: 13.5px; }
 
   /* footer */
   footer { border-top: 1px solid var(--rule); padding-block: 44px 56px; margin-top: 20px; }
@@ -189,6 +188,7 @@
   <div class="wrap bar">
     <a class="brand" href="#top"><span class="mark" aria-hidden="true">M</span>MadeBy</a>
     <nav class="links">
+      <a href="#try">Try it</a>
       <a class="opt" href="https://github.com/MadeByFYI/MadeBy/blob/main/ACO.md">Standard</a>
       <a class="opt" href="https://github.com/MadeByFYI/MadeBy/tree/main/experiments/aco-adoption">Evidence</a>
       <a href="https://github.com/MadeByFYI/MadeBy">GitHub</a>
@@ -206,8 +206,8 @@
           <h1>Who made this code?</h1>
           <p class="lead">AI writes more of the world's software every day, and the honest answer to <i>who wrote this?</i> is slipping away. <b>MadeBy</b> makes it answerable again — recording who authored each change, human, with AI, or AI, right on the commit. It never guesses whether code is AI; it records what the author puts on the record. <b>Disclosure, not detection.</b></p>
           <div class="cta">
-            <a class="btn primary" href="https://github.com/MadeByFYI/MadeBy/blob/main/ACO.md">Read the standard →</a>
-            <a class="btn ghost" href="https://github.com/MadeByFYI/MadeBy">View on GitHub</a>
+            <a class="btn primary" href="#try">Try it in your repo ↓</a>
+            <a class="btn ghost" href="https://github.com/MadeByFYI/MadeBy/blob/main/ACO.md">Read the standard</a>
           </div>
         </div>
         <div class="term" aria-hidden="true">
@@ -226,39 +226,60 @@
       </div>
     </section>
 
-    <section>
+    <section id="try">
       <div class="sec-head">
-        <p class="eyebrow">How it works · the open standard</p>
-        <h2>MadeBy runs on ACO</h2>
-        <p><b>ACO — the Authorship Certificate of Origin</b> — is the open, tool-independent standard MadeBy is built on. Every change is one of three categories; the author says which, honestly, per commit. Anyone can read it, verify it, or implement it.</p>
+        <p class="eyebrow">Try it · about five minutes</p>
+        <h2>Put your repo's authorship on the record</h2>
+        <p>Open a terminal in any git repo. Everything runs locally with <span class="mono">npx</span> against your own history — <b>no account, no keys, nothing hosted</b>, and your code never leaves your machine. Each step shows a piece of how MadeBy works.</p>
       </div>
-      <div class="tax">
-        <div class="cat">
-          <span class="k">human</span>
-          <h3>A person wrote it</h3>
-          <p>Authored by a human, no AI involvement.</p>
-          <div class="trailer">Authored-by-human: <span>Dana Lee</span></div>
-        </div>
-        <div class="cat">
-          <span class="k">with_ai</span>
-          <h3>A person, with AI help</h3>
-          <p>Human-authored with disclosed AI assistance.</p>
-          <div class="trailer">Authored-by-human: <span>Dana Lee</span><br>Assisted-by: <span>Cursor</span></div>
-        </div>
-        <div class="cat">
-          <span class="k">ai</span>
-          <h3>An AI wrote it</h3>
-          <p>AI-authored — the committer stays accountable.</p>
-          <div class="trailer">Authored-by-ai: <span>Claude Code</span></div>
-        </div>
-      </div>
-      <div class="oneline">
-        <span>After you commit, one line — no install, no keys, no setup:</span>
-        <span class="chip">$ npx madeby <b>ai</b></span>
-      </div>
+      <ol class="steps">
+        <li>
+          <div>
+            <h3>See where you stand</h3>
+            <span class="cmd">$ npx madeby <b>coverage</b></span>
+            <p>MadeBy reads what your commits already say about who wrote them — the trailers AI tools leave, DCO sign-offs, signatures — and scores how much of your history is <b>on the record</b>.</p>
+            <div class="term" aria-hidden="true"><div class="body"><span class="c">authorship coverage — last 500 commits  (estimate · disclosure, not detection)</span>
+  known     62%  <span class="hl">████████████</span><span class="c">░░░░░░░░</span>  disclosed — on the record
+  unknown   38%  <span class="hl">███████</span><span class="c">░░░░░░░░░░░░░</span>  no disclosure — origin unknown, never guessed
+
+  of the 310 known:  human 41% · with_ai 38% · ai 21%</div></div>
+            <p class="why">Notice what it doesn't do: an undisclosed commit is <i>unknown</i>, never assumed human and never "detected" as AI. MadeBy only records what an author puts on the record.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Disclose your last commit</h3>
+            <p>Every change is one of three categories in <b>ACO</b>, the open standard MadeBy runs on. Pick the one that's true for the commit you just made — each command adds one plain git trailer to <span class="mono">HEAD</span>:</p>
+            <div class="cats">
+              <div><span class="k">human</span><p class="when">You wrote it, no AI.</p><span class="cmd">$ npx madeby <b>me</b></span><code>Authored-by-human: Dana Lee</code></div>
+              <div><span class="k">with_ai</span><p class="when">You wrote it, with AI help.</p><span class="cmd">$ npx madeby <b>me --with-ai</b> Cursor</span><code>Authored-by-human: Dana Lee<br>Assisted-by: Cursor</code></div>
+              <div><span class="k">ai</span><p class="when">An AI wrote it; you're still accountable.</p><span class="cmd">$ npx madeby <b>ai</b> "Claude Code"</span><code>Authored-by-ai: Claude Code</code></div>
+            </div>
+            <p class="why">Run <span class="mono">coverage</span> again and that commit moves from unknown to known. It's just git — you could type the trailer yourself.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Let your agents disclose for you</h3>
+            <span class="cmd">$ npx madeby <b>init</b></span>
+            <p>Sets the repo up in one step: an <span class="mono">AGENTS.md</span> rule describing the convention (merged into yours if you have one), an advisory <span class="mono">.madeby/policy.json</span>, and — on GitHub — a pull-request check. Commit the files.</p>
+            <p class="why">Coding agents read <span class="mono">AGENTS.md</span>. With the rule present, Claude Code, Copilot and Cursor disclosed their own authorship in <a href="#evidence">12 of 12 trials</a> — without being asked.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h3>Gate pull requests when you're ready</h3>
+            <p>The check <span class="mono">init</span> added runs <span class="mono">madeby check</span> on every pull request. It starts <b>advisory</b>: it reports which commits disclose their origin and never fails a build. When you want disclosure to be required:</p>
+            <span class="cmd">$ npx madeby <b>init --required</b></span>
+            <p>That switches <span class="mono">.madeby/policy.json</span> to <span class="mono">"mode": "required"</span> — the one line you could also edit by hand.</p>
+            <p class="why">Undisclosed commits now fail the check, and the output tells the contributor how to disclose them. MadeBy never blocks a PR on its own error, and never enforces a stricter rule than the one you wrote.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="other-hosts">On GitLab, Azure DevOps or another CI? The same check is one line — <code>npx madeby check &lt;range&gt;</code> — and there are <a href="https://github.com/MadeByFYI/MadeBy/tree/main/packages/action#readme">ready-made templates</a>. Want an agent to run all of this? <code>npx madeby mcp</code> exposes it as <a href="https://github.com/MadeByFYI/MadeBy/tree/main/packages/cli#agent-native--the-mcp-server">MCP tools</a>.</p>
     </section>
 
-    <section>
+    <section id="evidence">
       <div class="sec-head">
         <p class="eyebrow">Reproducible result</p>
         <h2>Agents disclose on their own</h2>
@@ -305,36 +326,6 @@
       </div>
     </section>
 
-    <section>
-      <div class="sec-head">
-        <p class="eyebrow">For maintainers</p>
-        <h2>See your coverage, close the gap</h2>
-        <p>Measure how much of your repo's authorship is on the record — then invite disclosure, and gate on it only if you want to.</p>
-      </div>
-      <div class="maint">
-        <div class="step">
-          <div>
-            <span class="cmd">$ npx madeby coverage</span>
-            <h3>See where you stand</h3>
-            <p>A scoreboard for your history: how much authorship is disclosed (known) vs <span class="mono">unknown</span>, and the human / with-AI / AI mix of what's known. A labeled estimate — origin unknown is never guessed as human.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div>
-            <span class="cmd">$ npx madeby init</span>
-            <h3>Drop in the convention</h3>
-            <p>Writes an <span class="mono">AGENTS.md</span> ACO rule — or merges it into the one you already have — so agents working in your repo disclose unprompted.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div>
-            <span class="cmd">$ npx madeby check</span>
-            <h3>Gate PRs — optionally</h3>
-            <p>Reports disclosure coverage on every pull request. Advisory by default; it never blocks on its own error, and never invents a stricter rule than you wrote.</p>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </main>
 
