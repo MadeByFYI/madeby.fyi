@@ -30,6 +30,7 @@ Each command amends HEAD's message only, never its content, and refuses when cha
 
 ## Docs
 
+- [Home page as Markdown](https://madeby.fyi/index.md): the madeby.fyi walkthrough (also served at `/` to `Accept: text/markdown`)
 - [llms-full.txt](https://madeby.fyi/llms-full.txt): the MCP guides, the AGENTS.md convention, the policy schema, the CLI reference and the ACO spec in one file
 - [AGENTS.md](https://madeby.fyi/AGENTS.md): the exact disclosure rule `madeby init` writes, to copy into a repo
 - [ACO specification](https://raw.githubusercontent.com/MadeByFYI/MadeBy/main/ACO.md)

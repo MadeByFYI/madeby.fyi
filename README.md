@@ -9,6 +9,8 @@ The website for **MadeBy** — verifiable authorship provenance for code, built 
 A static page (`index.html`) plus the files agents read, deployed to <https://madeby.fyi> via
 Cloudflare Pages (direct upload — a git push does not deploy).
 
+- `md.mjs` — turns `index.html` into `index.md` (also `index.html.md`) at build, so the Markdown never
+  drifts from the page. `functions/_middleware.js` serves it at `/` to `Accept: text/markdown`.
 - `llms.txt` — the hand-written agent index (`{{VERSION}}` is filled in at build).
 - `build.mjs` — builds `dist/`: the page, `404.html`, `llms.txt`, and, generated from the **published**
   `madeby` package, `llms-full.txt` (the MCP guides, the AGENTS.md convention, the policy schema, the
@@ -17,7 +19,7 @@ Cloudflare Pages (direct upload — a git push does not deploy).
   block must stay off in the zone settings, or they override it.) Rebuild after
   each `madeby` release so the agent files match it.
 
-Deploy:
+Deploy, from this directory (wrangler picks up `functions/` from here):
 
 ```sh
 node build.mjs

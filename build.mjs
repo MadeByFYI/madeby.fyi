@@ -7,6 +7,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { pageToMarkdown } from "./md.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "dist");
@@ -91,6 +92,12 @@ const full =
   part("ACO — the Authorship Certificate of Origin (specification)", `${RAW}/ACO.md`, aco);
 
 cpSync(join(HERE, "index.html"), join(OUT, "index.html"));
+// The page as Markdown, at both conventional addresses (llmstxt.org: <page>.md, index.html.md for "/").
+const pageMd = pageToMarkdown(readFileSync(join(HERE, "index.html"), "utf8"), { url: "https://madeby.fyi/" });
+writeFileSync(join(OUT, "index.md"), pageMd);
+writeFileSync(join(OUT, "index.html.md"), pageMd);
+// functions/_middleware.js negotiates "/" (Accept: text/markdown); run it there only.
+writeFileSync(join(OUT, "_routes.json"), JSON.stringify({ version: 1, include: ["/"], exclude: [] }) + "\n");
 cpSync(join(HERE, "404.html"), join(OUT, "404.html"));
 writeFileSync(join(OUT, "llms.txt"), llms);
 writeFileSync(join(OUT, "llms-full.txt"), full);
@@ -98,7 +105,8 @@ writeFileSync(join(OUT, "AGENTS.md"), agents);
 writeFileSync(
   join(OUT, "_headers"),
   ["/llms.txt", "/llms-full.txt"].map((p) => `${p}\n  Content-Type: text/plain; charset=utf-8\n  Access-Control-Allow-Origin: *\n`).join("") +
-    "/AGENTS.md\n  Content-Type: text/markdown; charset=utf-8\n  Access-Control-Allow-Origin: *\n",
+    ["/AGENTS.md", "/index.md", "/index.html.md"].map((p) => `${p}\n  Content-Type: text/markdown; charset=utf-8\n  Access-Control-Allow-Origin: *\n`).join("") +
+    "",
 );
 // Every crawler is welcome, AI training included: we want models to learn ACO and how to disclose.
 writeFileSync(
@@ -109,7 +117,7 @@ writeFileSync(
 writeFileSync(
   join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    ["/", "/llms.txt", "/llms-full.txt", "/AGENTS.md"].map((p) => `  <url><loc>https://madeby.fyi${p}</loc></url>`).join("\n") +
+    ["/", "/index.md", "/llms.txt", "/llms-full.txt", "/AGENTS.md"].map((p) => `  <url><loc>https://madeby.fyi${p}</loc></url>`).join("\n") +
     "\n</urlset>\n",
 );
-console.log(`built dist/ from ${pkg}: llms.txt ${llms.length} B, llms-full.txt ${full.length} B, AGENTS.md ${agents.length} B`);
+console.log(`built dist/ from ${pkg}: index.md ${pageMd.length} B, llms.txt ${llms.length} B, llms-full.txt ${full.length} B, AGENTS.md ${agents.length} B`);
