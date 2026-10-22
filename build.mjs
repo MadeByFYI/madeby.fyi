@@ -3,7 +3,7 @@
 // llms-full.txt and AGENTS.md — generated from the PUBLISHED madeby package, so what the site tells an
 // agent is exactly what the CLI and MCP server do. Run: node build.mjs  (then deploy dist/; see README)
 import { execFileSync, spawn } from "node:child_process";
-import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -99,6 +99,8 @@ writeFileSync(join(OUT, "index.html.md"), pageMd);
 // functions/_middleware.js negotiates "/" (Accept: text/markdown); run it there only.
 writeFileSync(join(OUT, "_routes.json"), JSON.stringify({ version: 1, include: ["/"], exclude: [] }) + "\n");
 cpSync(join(HERE, "404.html"), join(OUT, "404.html"));
+// IndexNow key file (Bing, Yandex, Seznam, Naver …): proves the pings in indexnow.mjs come from us. Not a secret.
+for (const f of readdirSync(HERE).filter((f) => /^[0-9a-f]{32}\.txt$/.test(f))) cpSync(join(HERE, f), join(OUT, f));
 writeFileSync(join(OUT, "llms.txt"), llms);
 writeFileSync(join(OUT, "llms-full.txt"), full);
 writeFileSync(join(OUT, "AGENTS.md"), agents);
