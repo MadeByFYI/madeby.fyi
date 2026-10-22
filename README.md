@@ -24,4 +24,5 @@ Deploy, from this directory (wrangler picks up `functions/` from here):
 ```sh
 node build.mjs
 npx wrangler pages deploy dist --project-name=madeby-fyi --branch=main --commit-hash=$(git rev-parse HEAD)
+node indexnow.mjs   # tell Bing and the other IndexNow engines the site changed
 ```
