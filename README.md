@@ -12,7 +12,9 @@ Cloudflare Pages (direct upload — a git push does not deploy).
 - `llms.txt` — the hand-written agent index (`{{VERSION}}` is filled in at build).
 - `build.mjs` — builds `dist/`: the page, `404.html`, `llms.txt`, and, generated from the **published**
   `madeby` package, `llms-full.txt` (the MCP guides, the AGENTS.md convention, the policy schema, the
-  CLI reference and the ACO spec) and `AGENTS.md` (exactly what `madeby init` writes). Rebuild after
+  CLI reference and the ACO spec), `AGENTS.md` (exactly what `madeby init` writes) and a `robots.txt`
+  that welcomes all crawlers, AI training included. (Cloudflare's managed robots.txt and its AI-crawler
+  block must stay off in the zone settings, or they override it.) Rebuild after
   each `madeby` release so the agent files match it.
 
 Deploy:

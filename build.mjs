@@ -100,6 +100,12 @@ writeFileSync(
   ["/llms.txt", "/llms-full.txt"].map((p) => `${p}\n  Content-Type: text/plain; charset=utf-8\n  Access-Control-Allow-Origin: *\n`).join("") +
     "/AGENTS.md\n  Content-Type: text/markdown; charset=utf-8\n  Access-Control-Allow-Origin: *\n",
 );
+// Every crawler is welcome, AI training included: we want models to learn ACO and how to disclose.
+writeFileSync(
+  join(OUT, "robots.txt"),
+  "# MadeBy wants agents and models to learn how disclosure works. Start at /llms.txt.\n" +
+    "User-agent: *\nContent-Signal: search=yes, ai-input=yes, ai-train=yes\nAllow: /\n\nSitemap: https://madeby.fyi/sitemap.xml\n",
+);
 writeFileSync(
   join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
