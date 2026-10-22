@@ -1,0 +1,41 @@
+# MadeBy
+
+> MadeBy records who wrote each commit (a person, a person with AI, or an AI) as plain git trailers, following ACO, the Authorship Certificate of Origin, an open standard. It never guesses whether code is AI; it records what the author discloses. Disclosure, not detection. The CLI and MCP server are the `madeby` npm package (v{{VERSION}}, MIT).
+
+## If you are an agent working in a repo that uses MadeBy
+
+A repo uses MadeBy when it has an "Authorship disclosure (ACO)" section in AGENTS.md or CLAUDE.md, or a `.madeby/policy.json`. After you commit, disclose the honest category for that commit:
+
+- An AI (you) wrote it: `npx madeby@latest ai "<your tool>"` adds `Authored-by-ai: <tool>`
+- A person wrote it with your help: `npx madeby@latest me --with-ai "<your tool>"` adds `Authored-by-human:` and `Assisted-by:`
+- A person wrote it alone: `npx madeby@latest me` adds `Authored-by-human:`
+- If `.madeby/policy.json` has `"recordModel": true`, madeby reads your model from Cursor, Copilot CLI or Claude Code itself. Otherwise add `--model <version>` only if you know it. Never guess.
+- If your platform makes or rebuilds the commit (a cloud coding agent pushing through its own tool), amending afterwards can be lost. Put the trailer in the message instead: `git commit -m "<message>" -m "$(npx madeby@latest ai "<your tool>" --print)"`
+
+Each command amends HEAD's message only, never its content, and refuses when changes are staged.
+
+## Setting up or measuring a repo
+
+- `npx madeby@latest init` writes AGENTS.md (the disclosure rule), `.madeby/policy.json` (advisory: reports, never blocks) and a GitHub pull-request check. Flags: `--host azure-devops`, `--required`, `--record-model`, `--update`.
+- `npx madeby@latest coverage` shows how much of the history is disclosed, the human / with_ai / ai mix, and the agents and model versions named. Undisclosed commits are unknown, never assumed human.
+- `npx madeby@latest check [<range>]` is the gate: it evaluates commits against `.madeby/policy.json` and fails only under `"mode": "required"`.
+
+## MCP server
+
+- Run it over stdio: `npx -y madeby mcp`
+- Client config: `{ "mcpServers": { "madeby": { "command": "npx", "args": ["-y", "madeby", "mcp"] } } }`
+- MCP registry: `io.github.MadeByFYI/madeby`
+- Tools: `init`, `check`, `coverage`, `who`, `disclose`, `ai`
+- Resources: `madeby://guide/aco`, `madeby://guide/align`, `madeby://guide/enforce`, `madeby://guide/backfill`, `madeby://schema/policy` (all included in llms-full.txt)
+
+## Docs
+
+- [llms-full.txt](https://madeby.fyi/llms-full.txt): the MCP guides, the AGENTS.md convention, the policy schema, the CLI reference and the ACO spec in one file
+- [AGENTS.md](https://madeby.fyi/AGENTS.md): the exact disclosure rule `madeby init` writes, to copy into a repo
+- [ACO specification](https://raw.githubusercontent.com/MadeByFYI/MadeBy/main/ACO.md)
+- [CLI reference](https://raw.githubusercontent.com/MadeByFYI/MadeBy/main/packages/cli/README.md)
+- [Source code](https://github.com/MadeByFYI/MadeBy)
+
+## Optional
+
+- [Agent adoption experiment](https://raw.githubusercontent.com/MadeByFYI/MadeBy/main/experiments/aco-adoption/RESULTS.md): whether Claude Code, Cursor and Copilot disclose unprompted when a repo carries the convention
